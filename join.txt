@@ -78,6 +78,26 @@ awards.name LIKE '%anno'
 
 
 9- Selezionare i giocatori che hanno giocato al gioco più atteso del 2018 in un torneo del 2019 (3306)
+SELECT DISTINCT player_tournament.player_id , players.name AS player_name ,awards.name ,  tournaments.name
+FROM videogames
+INNER JOIN award_videogame
+ON videogames.id = award_videogame.videogame_id
+INNER JOIN awards
+ON award_videogame.award_id = awards.id
+INNER JOIN tournament_videogame 
+ON videogames.id = tournament_videogame.videogame_id
+INNER JOIN tournaments 
+ON tournament_videogame.tournament_id = tournaments.id
+INNER JOIN player_tournament
+ON tournaments.id = player_tournament.tournament_id
+INNER JOIN players
+ON player_tournament.player_id = players.id
+WHERE awards.name LIKE '%atteso' 
+AND 
+award_videogame.year = 2018
+AND
+tournaments.year = 2019
+
 
 
 *********** BONUS ***********
